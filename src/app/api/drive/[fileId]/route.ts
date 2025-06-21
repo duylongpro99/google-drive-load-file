@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleDriveService } from '../../../../../lib/googleDrive';
 
-export async function GET(req: NextRequest, { params }: { params: { fileId: string } }) {
-    const { fileId } = params;
+export async function GET(req: NextRequest, { params }: { params: Promise<{ fileId: string }> }) {
+    const { fileId } = await params;
 
     if (!fileId || typeof fileId !== 'string') {
         return NextResponse.json({ error: 'File ID is required' }, { status: 400 });
